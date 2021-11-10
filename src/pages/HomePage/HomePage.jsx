@@ -21,10 +21,12 @@ const HomePage = ()=>{
     billErr: false,
     tipErr: false,
     personCountErr: false,
+    fetchResponseErr: false,
 
     billErrText: '',
     tipErrText: '',
     personCountErrText: '',
+    fetchResponseErrText: ''
   });
 
   const [result, setResult] = React.useState({
@@ -56,10 +58,13 @@ const HomePage = ()=>{
       billErr: false,
       tipErr: false,
       personCountErr: false,
+      fetchResponseErr: false,
+
 
       billErrText: '',
       tipErrText: '',
       personCountErrText: '',
+      fetchResponseErrText: ''
     });
     return true;
   }
@@ -69,27 +74,51 @@ const HomePage = ()=>{
     console.log('onsubmit');
 
     if(isValidateTrue()){
+
+      // set is fetching data
       setResult({
         ...result,
         amount: '--.--',
         total: '--.--',
         isFetching: true,
       })
-      calculatorApi.get(data.bill, data.tip, data.personCount
-        ).then(({result, total, amount})=>{
-          console.log(result, total, amount)
-          setResult({
-            ...result,
-            amount: amount.toFixed(2).toString(),
-            total: total.toFixed(2).toString(),
-            isFetching: false,
-          })
-        }).catch(()=>{
-          setResult({
-            ...result,
-            isFetching: false,
-          })
+
+      // fetch data
+      calculatorApi.get(data).then(({result, total, amount})=>{
+        console.log(result, total, amount)
+
+        // set fetch done
+        setResult({
+          ...result,
+          amount: amount.toFixed(2).toString(),
+          total: total.toFixed(2).toString(),
+          isFetching: false,
+        })
+        setError({
+          billErr: false,
+          tipErr: false,
+          personCountErr: false,
+          fetchResponseErr: false,
+
+
+          billErrText: '',
+          tipErrText: '',
+          personCountErrText: '',
+          fetchResponseErrText: ''
         });
+      }).catch(()=>{
+
+        // set fetch done
+        setResult({
+          ...result,
+          isFetching: false,
+        })
+        setError({
+          ...error,
+          fetchResponseErr: false,
+          fetchResponseErrText: 'Fetch Data Error',
+        })
+      });
     }
   }
 
@@ -105,10 +134,13 @@ const HomePage = ()=>{
       billErr: false,
       tipErr: false,
       personCountErr: false,
+      fetchResponseErr: false,
+
 
       billErrText: '',
       tipErrText: '',
       personCountErrText: '',
+      fetchResponseErrText: ''
     });
     setResult({
       amount: '00.00',
@@ -170,6 +202,7 @@ const HomePage = ()=>{
     if(data.isCustomAvailable===isAvailable) return;
     setData({
       ...data,
+      tip: 0,
       isCustomAvailable: isAvailable
     });
   }
@@ -179,6 +212,7 @@ const HomePage = ()=>{
       <section className="main__container">
         {/*logo*/}
         <img src={logo} alt="logo" />
+          <h3 style={{color:'red'}}>{error.fetchResponseErrText}</h3>
           {/*<!--      main*/}
           <div id="form-submit" className="calculator">
             {/*content left*/}

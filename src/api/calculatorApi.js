@@ -1,9 +1,9 @@
 import axios from "./axios";
 
 const calculatorApi = {
-  get: (bill, tip, personCount) => {
+  get: (data) => {
     const url = '/calculate?' +
-    `bill=${bill}&people=${personCount}&tipPercent=${tip}`;
+    `bill=${data.bill}&people=${data.personCount}&tipPercent=${data.tip}`;
     console.log(url);
     return axios.get(url);
   },
