@@ -43,23 +43,33 @@ const HomePage = ()=>{
     ){
       setError({
         ...error,
-        billErr: (data.bill === 0 || data.bill==='0' || data.bill < 0),
-        billErrText:
-          (data.bill === 0 || data.bill==='0') ? 'Bill must be add' : 'Bill must be greater than 0',
-
-        personCountErr: (data.personCount === 0 || data.personCount==='0' || data.personCount < 0),
-        personCountErrText:
-          (data.personCount === 0 || data.personCount==='0') ?
-            'Number of person must be add' : 'Number of person must be greater than 0',
+        billErr: (
+          data.bill === 0 ||
+          data.bill ==='0' ||
+          data.bill < 0
+        ),
+        billErrText: (
+          data.bill === 0 ||
+          data.bill === '0'
+        ) ? 'Bill must be add' : 'Bill must be greater than 0',
+        personCountErr: (
+          data.personCount === 0 ||
+          data.personCount ==='0' ||
+          data.personCount < 0
+        ),
+        personCountErrText: (
+          data.personCount === 0 ||
+          data.personCount ==='0'
+        ) ? 'Number of person must be add' : 'Number of person must be greater than 0',
       });
       return false;
     }
+
     setError({
       billErr: false,
       tipErr: false,
       personCountErr: false,
       fetchResponseErr: false,
-
 
       billErrText: '',
       tipErrText: '',
@@ -85,7 +95,6 @@ const HomePage = ()=>{
 
       // fetch data
       calculatorApi.get(data).then(({result, total, amount})=>{
-        console.log(result, total, amount)
 
         // set fetch done
         setResult({
@@ -100,14 +109,12 @@ const HomePage = ()=>{
           personCountErr: false,
           fetchResponseErr: false,
 
-
           billErrText: '',
           tipErrText: '',
           personCountErrText: '',
-          fetchResponseErrText: ''
+          fetchResponseErrText: '',
         });
       }).catch(()=>{
-
         // set fetch done
         setResult({
           ...result,
@@ -115,7 +122,14 @@ const HomePage = ()=>{
         })
         setError({
           ...error,
-          fetchResponseErr: false,
+          billErr: false,
+          tipErr: false,
+          personCountErr: false,
+          fetchResponseErr: true,
+
+          billErrText: '',
+          tipErrText: '',
+          personCountErrText: '',
           fetchResponseErrText: 'Fetch Data Error',
         })
       });
@@ -136,7 +150,6 @@ const HomePage = ()=>{
       personCountErr: false,
       fetchResponseErr: false,
 
-
       billErrText: '',
       tipErrText: '',
       personCountErrText: '',
@@ -149,54 +162,26 @@ const HomePage = ()=>{
     })
   }
 
-  const handleChange = (e, isCustom)=>{
-    e.target.name === 'bill' && setData({
+  const handleChange = (e)=>{
+    setData({
       ...data,
-      bill: parseFloat(e.target.value)
+      [e.target.name]: e.target.value ? parseFloat(e.target.value) : ''
     });
-    e.target.name === 'personCount' && setData({
-      ...data,
-      personCount: parseFloat(e.target.value)
-    });
-    (data.tip!==e.target.value && e.target.name === 'tipPercent')
-    && setData(rev =>({
-      ...data,
-      tip:e.target.value ? parseFloat(e.target.value) : 0,
-      isCustomAvailable: isCustom || rev.isCustomAvailable,
-    }));
   }
 
   const handleFocus = (e)=>{
-    (e.target.name==='bill' && e.target.value ==='0') &&
-      setData({
-        ...data,
-        bill: ''
-      });
-    (e.target.name==='tipPercent' && e.target.value ==='0') &&
-    setData({
+    setData(rev=>({
       ...data,
-      tip: ''
-    });
-    (e.target.name==='personCount' && e.target.value ==='0') &&
-    setData({
-      ...data,
-      personCount: ''
-    })
+      [e.target.name]: e.target.value  === '0' ? '' : rev[e.target.name]
+    }));
   }
 
   const handleBlur = (e)=>{
-    (e.target.name==='bill' && e.target.value ==='') &&
-    setData({
+    setData(rev=>({
       ...data,
-      bill: 0
-    });
-    (e.target.name==='personCount' && e.target.value ==='') &&
-    setData({
-      ...data,
-      personCount: 0
-    })
+      [e.target.name]: e.target.value  === '' ? '0' : rev[e.target.name]
+    }));
   }
-
 
   const handleCustomAvailable = (isAvailable)=>{
     if(data.isCustomAvailable===isAvailable) return;
@@ -212,7 +197,8 @@ const HomePage = ()=>{
       <section className="main__container">
         {/*logo*/}
         <img src={logo} alt="logo" />
-          <h3 style={{color:'red'}}>{error.fetchResponseErrText}</h3>
+          <h3 style={{color:'red', marginTop: '20px'}}
+            >{error.fetchResponseErrText}</h3>
           {/*<!--      main*/}
           <div id="form-submit" className="calculator">
             {/*content left*/}

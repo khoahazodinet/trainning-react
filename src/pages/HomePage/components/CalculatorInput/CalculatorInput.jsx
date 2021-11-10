@@ -58,7 +58,7 @@ const CalculatorInput = (props)=>{
           {tipSelection.map((item, key)=>(
             <div className="item" key={key}>
               <label className="container__input">
-                <input type="radio" name="tipPercent" onChange={handleChange} value={item.value} />
+                <input type="radio" name="tip" onChange={handleChange} value={item.value} />
                 <span className={`checkmark ${
                   (data.tip === item.value && data.isCustomAvailable === false) 
                     && 'isChecked'
@@ -73,8 +73,9 @@ const CalculatorInput = (props)=>{
             {data.isCustomAvailable ?
               (<input
                   rel={'input'} value={data.tip}
+                  autoFocus={data.isCustomAvailable}
                   onFocus={handleFocus} onBlur={handleBlur}
-                  type='number' className='inputCustom' name='tipPercent'
+                  type='number' className='inputCustom' name='tip'
                       onChange={(e)=>handleChange(e, true)}/>) :
               (<div className="custom">
                 Custom
