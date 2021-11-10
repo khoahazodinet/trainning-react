@@ -1,0 +1,101 @@
+@import '../../utils/_Variable.scss';
+
+.content-right {
+  width: 48%;
+  padding: 40px 30px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background-color: $Very-dark-cyan;
+
+  .item {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .label {
+      h1 {
+        font-weight: 700;
+        font-size: 1.6rem;
+        color: $Light-grayish-cyan-1;
+      }
+
+      span {
+        font-size: 1.4rem;
+        color: $Dark-grayish-cyan-2;
+      }
+    }
+
+    .result {
+      h2 {
+        font-size: 4rem;
+        color: $Strong-cyan;
+      }
+    }
+  }
+
+  .button-footer {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      height: 50px;
+      width: 45%;
+      border-radius: 10px;
+
+      font-size: 2rem;
+      font-weight: 700;
+
+      border: none;
+      color: $Very-dark-cyan;
+      background-color: $Strong-cyan;
+    }
+
+    .btn-disabled {
+      background-color: $Dark-grayish-cyan-1;
+    }
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .content-right {
+    .contentBox{
+      padding: 0 5px;
+      margin-bottom: 20px;
+      .item{
+        margin-bottom: unset;
+        height: 100px;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 375px) {
+  .content-right {
+    .contentBox{
+      padding: 0 5px;
+      margin-bottom: 20px;
+      .item{
+        margin-bottom: unset;
+        height: 90px;
+        .label{
+          h1{
+            font-size: 1.4rem;
+          }
+          span{
+            font-size: 1.2rem;
+          }
+        }
+        .result{
+          h2{
+            font-size: 3.5rem;
+          }
+        }
+      }
+    }
+  }
+}
