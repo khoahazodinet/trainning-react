@@ -1,6 +1,6 @@
 import React from 'react';
-import dollar from "../../assets/images/icon-dollar.svg";
-import person from "../../assets/images/icon-person.svg";
+import dollar from "../../../../assets/images/icon-dollar.svg";
+import person from "../../../../assets/images/icon-person.svg";
 
 const CalculatorInput = (props)=>{
   const {handleChange,

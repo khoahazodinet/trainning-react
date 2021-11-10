@@ -4,8 +4,8 @@ import React from 'react';
 import logo from '../../assets/images/logo.svg';
 
 // component
-import CalculatorInput from "../../components/CalculatorInput";
-import CalculatorOutput from "../../components/CalculatorOutput";
+import CalculatorInput from "./components/CalculatorInput";
+import CalculatorOutput from "./components/CalculatorOutput";
 import calculatorApi from "../../api/calculatorApi";
 
 const HomePage = ()=>{
