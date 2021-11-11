@@ -68,7 +68,10 @@
       .item{
         width: 30%;
         height: 40px;
-
+        .inputCustom::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
         margin-bottom: 10px;
         .container__input{
           width: 100%;
@@ -133,57 +136,7 @@
           background-color: $Light-grayish-cyan-2;
           border: 2px solid $Dark-grayish-cyan-1;
         }
-        //.container__input:hover .checkmark{
-        //  //background:#ccc;
-        //}
-        //.checkmark:after{
-        //  content:"";
-        //  position:absolute;
-        //  display:none;
-        //}
-        //.container__input .checkmark:after{
-        //  top:50%;
-        //  left:50%;
-        //  width: 15px;
-        //  height: 15px;
-        //  transform:translate(-50%,-50%) rotate(45deg);
-        //}
-        //.container__input input:checked ~ .checkmark{
-        //  background: $Strong-cyan;
-        //  color: $Very-dark-cyan;
-        //}
-        //.container__input input:checked ~ .checkmark:after{
-        //  display:block;
-        //}
-
-        //.onCustom{
-        //  .checkmark{
-        //    display: none;
-        //  }
-        //  input[type=number]{
-        //    padding: 0 10px;
-        //    width: 100%;
-        //    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
-        //    height: -webkit-fill-available;
-        //
-        //    background-color: $Light-grayish-cyan-2;
-        //    border: 2px solid $Dark-grayish-cyan-1;
-        //    border-radius: 10px;
-        //    outline: none;
-        //    opacity: 1;
-        //
-        //    font-size: 1.6rem;
-        //    text-align: right;
-        //    font-weight: 700;
-        //    color: $Very-dark-cyan;
-        //    &::-webkit-inner-spin-button {
-        //      -webkit-appearance: none;
-        //      margin: 0;
-        //    }
-        //  }
-        //}
       }
-
     }
   }
   .count__number{
@@ -229,7 +182,7 @@
   }
 }
 
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 480px) {
   .content-left {
     .tip{
       .items{

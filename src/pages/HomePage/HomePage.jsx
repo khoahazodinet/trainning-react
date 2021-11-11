@@ -163,6 +163,7 @@ const HomePage = ()=>{
   }
 
   const handleChange = (e)=>{
+    if(isNaN(e.target.value)) return;
     setData({
       ...data,
       [e.target.name]: e.target.value ? parseFloat(e.target.value) : ''

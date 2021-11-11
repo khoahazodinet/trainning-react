@@ -12,7 +12,7 @@
 }
 
 .main__container{
-  width: 80%;
+  width: 90%;
   min-height: 90vh;
   border-radius: 10px;
 
@@ -30,7 +30,7 @@
     margin-bottom: 30px;
     padding: 25px;
 
-    width: 60%;
+    width: 70%;
     border-radius: 15px;
 
     display: flex;
@@ -54,7 +54,7 @@
       width: 90%;
       .calculator{
         flex-direction: column;
-        width: 100%;
+        width: 90%;
         height: unset;
         align-items: center;
         .content{
@@ -66,7 +66,7 @@
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 480px) {
   .homePage{
     padding: 50px 0;
     .main__container{

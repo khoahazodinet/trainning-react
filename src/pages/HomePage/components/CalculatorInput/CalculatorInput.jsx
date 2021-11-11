@@ -42,11 +42,11 @@ const CalculatorInput = (props)=>{
         </span>
         <div className="bill__input">
           <img src={dollar} alt="dollar-icon"/>
-          <input type="number" id="billInput"
+          <input type="text" id="billInput"
                  onChange={handleChange}
                  onFocus={handleFocus}
                  onBlur={handleBlur}
-                 value={data.bill} name="bill" step="0.01"/>
+                 value={data.bill} name="bill"/>
         </div>
       </div>
       <div className="tip">
@@ -75,7 +75,7 @@ const CalculatorInput = (props)=>{
                   rel={'input'} value={data.tip}
                   autoFocus={data.isCustomAvailable}
                   onFocus={handleFocus} onBlur={handleBlur}
-                  type='number' className='inputCustom' name='tip'
+                  type='text' className='inputCustom' name='tip'
                       onChange={(e)=>handleChange(e, true)}/>) :
               (<div className="custom">
                 Custom
@@ -93,7 +93,7 @@ const CalculatorInput = (props)=>{
         </label>
         <div className="count__number__input">
           <img src={person} alt="person-icon"/>
-          <input id="count-number" type="number"
+          <input id="count-number" type="text"
                  onChange={handleChange}
                  onFocus={handleFocus}
                  onBlur={handleBlur}
