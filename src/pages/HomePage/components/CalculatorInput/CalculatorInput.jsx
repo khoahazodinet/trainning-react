@@ -60,7 +60,7 @@ const CalculatorInput = (props)=>{
               <label className="container__input">
                 <input type="radio" name="tip" onChange={handleChange} value={item.value} />
                 <span className={`checkmark ${
-                  (data.tip === item.value && data.isCustomAvailable === false) 
+                  (parseFloat(data.tip) === item.value && data.isCustomAvailable === false) 
                     && 'isChecked'
                 }`}
                   onClick={()=>handleCustomAvailable(false)}

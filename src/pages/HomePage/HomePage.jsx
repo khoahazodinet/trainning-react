@@ -8,11 +8,11 @@ import CalculatorInput from "./components/CalculatorInput";
 import CalculatorOutput from "./components/CalculatorOutput";
 import calculatorApi from "../../api/calculatorApi";
 
-const HomePage = ()=>{
+const HomePage = () => {
   const [data, setData] = React.useState({
-    bill: 0,
-    tip: 0,
-    personCount: 0,
+    bill: '0',
+    tip: '0',
+    personCount: '0',
 
     isCustomAvailable: false
   });
@@ -35,17 +35,17 @@ const HomePage = ()=>{
     isFetching: false,
   });
 
-  const isValidateTrue = ()=>{
+  const isValidateTrue = () => {
 
-    if (data.bill === 0 || data.bill==='0'
+    if (data.bill === 0 || data.bill === '0'
       || data.personCount === 0
-      || data.personCount=== '0'
-    ){
+      || data.personCount === '0'
+    ) {
       setError({
         ...error,
         billErr: (
           data.bill === 0 ||
-          data.bill ==='0' ||
+          data.bill === '0' ||
           data.bill < 0
         ),
         billErrText: (
@@ -54,12 +54,12 @@ const HomePage = ()=>{
         ) ? 'Bill must be add' : 'Bill must be greater than 0',
         personCountErr: (
           data.personCount === 0 ||
-          data.personCount ==='0' ||
+          data.personCount === '0' ||
           data.personCount < 0
         ),
         personCountErrText: (
           data.personCount === 0 ||
-          data.personCount ==='0'
+          data.personCount === '0'
         ) ? 'Number of person must be add' : 'Number of person must be greater than 0',
       });
       return false;
@@ -79,11 +79,8 @@ const HomePage = ()=>{
     return true;
   }
 
-  const handleSubmit = (e)=>{
-    e.preventDefault();
-    console.log('onsubmit');
-
-    if(isValidateTrue()){
+  const handleSubmit = () => {
+    if (isValidateTrue()) {
 
       // set is fetching data
       setResult({
@@ -94,7 +91,7 @@ const HomePage = ()=>{
       })
 
       // fetch data
-      calculatorApi.get(data).then(({result, total, amount})=>{
+      calculatorApi.get(data).then(({result, total, amount}) => {
 
         // set fetch done
         setResult({
@@ -114,7 +111,7 @@ const HomePage = ()=>{
           personCountErrText: '',
           fetchResponseErrText: '',
         });
-      }).catch(()=>{
+      }).catch(() => {
         // set fetch done
         setResult({
           ...result,
@@ -136,7 +133,7 @@ const HomePage = ()=>{
     }
   }
 
-  const handleReset = ()=>{
+  const handleReset = () => {
     setData({
       bill: 0,
       tip: 0,
@@ -162,30 +159,58 @@ const HomePage = ()=>{
     })
   }
 
-  const handleChange = (e)=>{
-    if(isNaN(e.target.value)) return;
-    setData({
-      ...data,
-      [e.target.name]: e.target.value ? parseFloat(e.target.value) : ''
-    });
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    const re = /^[0-9]*\.?[0-9]*$/;
+
+    // if value is not blank, then test the regex
+    if (re.test(value) || value ==='') {
+      if (parseFloat(value) < 999999999 || value==='') {
+        setError({
+          ...error,
+          [name + 'Err']: false,
+          [name + 'ErrText']: '',
+        })
+        setData({
+          ...data,
+          [name]: value ? value : ''
+        });
+      } else {
+        if (error[`${name}Err`] === true) return;
+        setError({
+          ...error,
+          [`${name}Err`]: true,
+          [`${name}ErrText`]: `Max number is 999 999 999`,
+        })
+      }
+    }
   }
 
-  const handleFocus = (e)=>{
-    setData(rev=>({
+  // console.log(data);
+
+  const handleFocus = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setData(rev => ({
       ...data,
-      [e.target.name]: e.target.value  === '0' ? '' : rev[e.target.name]
+      [name]: value === '0' ? '' : rev[name]
     }));
   }
 
-  const handleBlur = (e)=>{
-    setData(rev=>({
+  const handleBlur = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setData(rev => ({
       ...data,
-      [e.target.name]: e.target.value  === '' ? '0' : rev[e.target.name]
+      [name]: value === '' ? '0' : rev[name]
     }));
   }
 
-  const handleCustomAvailable = (isAvailable)=>{
-    if(data.isCustomAvailable===isAvailable) return;
+  const handleCustomAvailable = (isAvailable) => {
+    if (data.isCustomAvailable === isAvailable) return;
     setData({
       ...data,
       tip: 0,
@@ -193,27 +218,27 @@ const HomePage = ()=>{
     });
   }
 
-  return(
+  return (
     <div className='homePage'>
       <section className="main__container">
         {/*logo*/}
-        <img src={logo} alt="logo" />
-          <h3 style={{color:'red', marginTop: '20px'}}
-            >{error.fetchResponseErrText}</h3>
-          {/*<!--      main*/}
-          <div id="form-submit" className="calculator">
-            {/*content left*/}
-            <CalculatorInput handleChange={handleChange}
-                             data={data} error={error}
-                             handleFocus={handleFocus}
-                             handleBlur={handleBlur}
-                             handleCustomAvailable={handleCustomAvailable}/>
+        <img src={logo} alt="logo"/>
+        <h3 style={{color: 'red', marginTop: '20px'}}
+        >{error.fetchResponseErrText}</h3>
+        {/*<!--      main*/}
+        <div id="form-submit" className="calculator">
+          {/*content left*/}
+          <CalculatorInput handleChange={handleChange}
+                           data={data} error={error}
+                           handleFocus={handleFocus}
+                           handleBlur={handleBlur}
+                           handleCustomAvailable={handleCustomAvailable}/>
 
-            {/*content right*/}
-            <CalculatorOutput handleSubmit={handleSubmit}
-                              handleReset={handleReset}
-                              data={data} result={result}/>
-          </div>
+          {/*content right*/}
+          <CalculatorOutput handleSubmit={handleSubmit}
+                            handleReset={handleReset}
+                            data={data} result={result}/>
+        </div>
       </section>
     </div>
   );
