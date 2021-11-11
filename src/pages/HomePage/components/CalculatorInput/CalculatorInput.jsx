@@ -51,8 +51,10 @@ const CalculatorInput = (props)=>{
       </div>
       <div className="tip">
         <label>
-          Select Tip %
-          <span className="error" id="tip-error" />
+          Select Tip % &nbsp;&nbsp;
+          <span className="error" id="tip-error" >
+            {error.tipErr && error.tipErrText}
+          </span>
         </label>
         <div className="items">
           {tipSelection.map((item, key)=>(

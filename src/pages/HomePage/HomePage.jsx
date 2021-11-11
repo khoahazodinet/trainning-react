@@ -162,11 +162,13 @@ const HomePage = () => {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    const decimalValue = value.split('.')[1]
     const re = name === 'personCount'?  /^[0-9]*$/ : /^[0-9]*\.?[0-9]*$/;
 
     // if value is not blank, then test the regex
     if (re.test(value) || value ==='') {
-      if (parseFloat(value) < 999999999 || value==='') {
+      if( decimalValue > 99 && decimalValue !=='') return;
+      if ((parseFloat(value) <= 999999999 || value==='')) {
         setError({
           ...error,
           [name + 'Err']: false,
