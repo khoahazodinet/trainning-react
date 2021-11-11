@@ -11,14 +11,6 @@ const Api = axios.create({
   withCredentials: false,
 })
 
-// Api.interceptors.request.use(async (config) => {
-//   const token = localStorage.getItem('access_token')
-//   if (token) {
-//     config.headers['Authorization'] = 'Bearer ' + token
-//   }
-//   return config
-// })
-
 Api.interceptors.response.use(
   async (response) => {
     return response.data

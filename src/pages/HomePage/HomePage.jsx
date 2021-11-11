@@ -162,7 +162,7 @@ const HomePage = () => {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    const re = /^[0-9]*\.?[0-9]*$/;
+    const re = name === 'personCount'?  /^[0-9]*$/ : /^[0-9]*\.?[0-9]*$/;
 
     // if value is not blank, then test the regex
     if (re.test(value) || value ==='') {
